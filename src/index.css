@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+/* Add this to ensure labels don’t override the text */
+input:focus + label,
+input:not(:placeholder-shown) + label {
+  top: -1.5rem;
+  font-size: 0.875rem; /* Optional: Adjust font size when focused */
+  color: #1d4ed8; /* Blue color when focused */
+}
