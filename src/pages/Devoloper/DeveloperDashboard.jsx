@@ -16,10 +16,10 @@ const DeveloperDashboard = () => {
     const fetchNews = async () => {
       try {
         const response = await axios.get(
-          `${API_BASE_URL}/api/developer/dashboard`
+          `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo`
         );
 
-        setTechNews(response.data.techNews);
+        setTechNews(response.data.feed);
       } catch (err) {
         setError("Failed to load tech news. Please try again later.");
         toast.error("Failed to load tech news. Please try again later.");

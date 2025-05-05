@@ -3,14 +3,16 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const NewsCard = ({ newsItem, index }) => {
-  const formattedDate = new Date(newsItem.publishedAt).toLocaleDateString(
-    undefined,
-    {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    }
+  const isoDate = newsItem.time_published.replace(
+    /^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})$/,
+    "$1-$2-$3T$4:$5:$6"
   );
+
+  const formattedDate = new Date(isoDate).toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
 
   return (
     <motion.div
@@ -19,9 +21,9 @@ const NewsCard = ({ newsItem, index }) => {
       transition={{ delay: index * 0.1 }}
       className="bg-white rounded-xl shadow-md hover:shadow-xl transform hover:-translate-y-1 transition duration-300 flex flex-col overflow-hidden"
     >
-      {newsItem.urlToImage ? (
+      {newsItem.banner_image ? (
         <img
-          src={newsItem.urlToImage}
+          src={newsItem.banner_image}
           alt={newsItem.title}
           className="w-full h-48 object-cover rounded-t-xl"
         />
@@ -42,7 +44,7 @@ const NewsCard = ({ newsItem, index }) => {
           </a>
         </h5>
         <p className="text-gray-700 text-sm mb-4 flex-grow line-clamp-3">
-          {newsItem.description || "No description available."}
+          {newsItem.summary || "No description available."}
         </p>
         <div className="text-xs text-gray-500 flex items-center justify-between mt-auto">
           <span className="bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full text-[11px] font-medium">
